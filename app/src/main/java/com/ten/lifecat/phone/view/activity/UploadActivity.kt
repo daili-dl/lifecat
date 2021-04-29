@@ -21,39 +21,38 @@ import java.io.FileNotFoundException
  */
 class UploadActivity : AppCompatActivity() {
 
-    private var Browse: Button? = null
-    private var Images: ImageView? = null
+    private lateinit var Browse: Button
+    private lateinit var Images: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
 
+        initView()
+
+    }
+
+    /* 初始化 */
+    private fun initView() {
+        Browse = findViewById(R.id.browse)
+        Images = findViewById<View>(R.id.camera_image) as ImageView
         /* 设置toolbar */
         val toolbar = findViewById<Toolbar>(R.id.upload_toolbar)
         setSupportActionBar(toolbar)
-
         /* 设置bar左侧按钮 */
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        init()
-
         /* 点击打开UpLoadImage，使用Album进行上传 */
-        Browse!!.setOnClickListener {
+        Browse.setOnClickListener {
             startActivity<UploadImage>()
         }
-    }
-
-    /* 初始化 */
-    private fun init() {
-        Browse = findViewById(R.id.browse)
-        Images = findViewById<View>(R.id.camera_image) as ImageView
     }
 
     /* 选取并展示 ？ */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Activity.RESULT_OK) {
-            val uri = data!!.data
+            val uri = data?.data
             val cr = this.contentResolver
             try {//压缩图片
                 val mBitmap = BitmapFactory.decodeStream(cr.openInputStream(uri!!))
@@ -80,7 +79,7 @@ class UploadActivity : AppCompatActivity() {
             }
             /* home键 */
             R.id.home -> {
-                startActivity<BackgroundActivity>()
+                startActivity<MainActivity>()
             }
             else -> {
             }

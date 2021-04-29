@@ -24,6 +24,6 @@ class WebActivity : AppCompatActivity() {
 
     companion object {
 
-        private val WEB_URL = "http://111.230.244.153:8080/lifecatweb/imageshow.jsp"
+        private val WEB_URL = "https://image.baidu.com/"
     }
 }

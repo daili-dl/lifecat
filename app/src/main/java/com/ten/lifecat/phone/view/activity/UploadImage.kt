@@ -18,7 +18,7 @@ class UploadImage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Album.startAlbum(this, Activity.RESULT_OK, 9, ContextCompat.getColor(this, R.color.colorPrimary), ContextCompat.getColor(this, R.color.colorPrimaryDark))// 指定选择数量
+        Album.startAlbum(this, 123, 9, ContextCompat.getColor(this, R.color.colorPrimary), ContextCompat.getColor(this, R.color.colorPrimaryDark))// 指定选择数量
         // 指定Toolbar的颜色
         // 指定状态栏的颜色
     }

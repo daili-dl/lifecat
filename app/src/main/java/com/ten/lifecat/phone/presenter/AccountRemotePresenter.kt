@@ -7,9 +7,9 @@ import java.util.HashMap
  */
 object AccountRemotePresenter {
 
-    private var USER: HashMap<String, String>? = null
-    private var EMAIL: Array<String>? = null
-    private var PASSWORD: Array<String>? = null
+    private var USER: HashMap<String, String>
+    private var EMAIL: Array<String>
+    private var PASSWORD: Array<String>
 
     /**
      * 设置默认密码库
@@ -18,8 +18,8 @@ object AccountRemotePresenter {
         USER = HashMap()
         EMAIL = arrayOf("daili@qq.com", "admin@gmail.com", "wangshihao@gmail.com", "zhuzhenyu@gmail.com", "ouyangchun@gmail.com", "chenjiahui@gmail.com", "lijuhang@gmail.com")
         PASSWORD = arrayOf("daili666", "123456", "123456", "123456", "123456", "123456", "123456")
-        for (i in EMAIL!!.indices) {
-            USER!![EMAIL!![i]] = PASSWORD!![i]
+        for (i in EMAIL.indices) {
+            USER[EMAIL[i]] = PASSWORD[i]
         }
     }
 
@@ -34,13 +34,13 @@ object AccountRemotePresenter {
      * 检查是否包含用户账号
      */
     private fun containEmail(email: String): Boolean {
-        return USER!!.containsKey(email)
+        return USER.containsKey(email)
     }
 
     /**
      * 检查密码是否正确
      */
     private fun isPasswordValid(email: String, password: String): Boolean {
-        return USER!![email] == password
+        return USER[email] == password
     }
 }

@@ -16,41 +16,35 @@ import com.ten.lifecat.phone.R
 
 class SignupActivity : AppCompatActivity() {
 
-    private var _nameText: EditText? = null
-    private var _emailText: EditText? = null
-    private var _passwordText: EditText? = null
-    private var _signupButton: Button? = null
-    private var _loginLink: TextView? = null
+    private lateinit var _nameText: EditText
+    private lateinit var _emailText: EditText
+    private lateinit var _passwordText: EditText
+    private lateinit var _signupButton: Button
+    private lateinit var _loginLink: TextView
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /* 隐藏标题栏 */
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE) // 隐藏标题栏
         setContentView(R.layout.activity_signup)
+        initView()
 
-        assignViews()
-        initListener()
     }
 
     /**
      * 获取组件
      */
-    private fun assignViews() {
+    private fun initView() {
         _nameText = findViewById(R.id.input_name)
         _emailText = findViewById(R.id.input_email)
         _passwordText = findViewById(R.id.input_password)
         _signupButton = findViewById(R.id.btn_signup)
         _loginLink = findViewById(R.id.link_login)
-    }
 
-    /**
-     * button点击事件
-     */
-    private fun initListener() {
-        /* 注册按钮 */
-        _signupButton!!.setOnClickListener { signup() }
+        _signupButton.setOnClickListener {
+            signup()
+        }
         /* 登录链接按钮 */
-        _loginLink!!.setOnClickListener {
+        _loginLink.setOnClickListener {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }
@@ -68,26 +62,21 @@ class SignupActivity : AppCompatActivity() {
             return
         }
 
-        _signupButton!!.isEnabled = false
+        _signupButton.isEnabled = false
 
-        val progressDialog = ProgressDialog(this@SignupActivity,
-                R.style.AppTheme_Dark_Dialog)
+        val progressDialog = ProgressDialog(this@SignupActivity, R.style.AppTheme_Dark_Dialog)
         progressDialog.isIndeterminate = true
         progressDialog.setMessage("Creating Account...")
         progressDialog.show()
 
-        val name = _nameText!!.text.toString()
-        val email = _emailText!!.text.toString()
-        val password = _passwordText!!.text.toString()
-
-        // TODO: Implement your own signup logic here.
+        val name = _nameText.text.toString()
+        val email = _emailText.text.toString()
+        val password = _passwordText.text.toString()
 
         android.os.Handler().postDelayed(
                 {
                     // On complete call either onSignupSuccess or onSignupFailed
-                    // depending on success
                     onSignupSuccess()
-                    // onSignupFailed();
                     progressDialog.dismiss()
                 }, 1000)
     }
@@ -96,12 +85,12 @@ class SignupActivity : AppCompatActivity() {
      * @description 注册成功-->跳转到MainActivity
      */
     fun onSignupSuccess() {
-        _signupButton!!.isEnabled = true
+        _signupButton.isEnabled = true
         setResult(Activity.RESULT_OK, null)
 
         /* 跳转 */
         val intent = Intent()
-        intent.setClass(this@SignupActivity, BackgroundActivity::class.java)
+        intent.setClass(this@SignupActivity, MainActivity::class.java)
         startActivity(intent)
 
         /* 销毁当前Activity */
@@ -112,8 +101,8 @@ class SignupActivity : AppCompatActivity() {
      * @description 注册失败
      */
     fun onSignupFailed() {
-        Toast.makeText(baseContext, "Login failed", Toast.LENGTH_LONG).show()
-        _signupButton!!.isEnabled = true
+        _signupButton.isEnabled = true
+        Toast.makeText(baseContext, "Singup failed", Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -122,32 +111,32 @@ class SignupActivity : AppCompatActivity() {
     fun validate(): Boolean {
         var valid = true
 
-        val name = _nameText!!.text.toString()
-        val email = _emailText!!.text.toString()
-        val password = _passwordText!!.text.toString()
+        val name = _nameText.text.toString()
+        val email = _emailText.text.toString()
+        val password = _passwordText.text.toString()
 
         /* name */
         if (name.isEmpty() || name.length < 3) {
-            _nameText!!.error = "at least 3 characters"
+            _nameText.error = "at least 3 characters"
             valid = false
         } else {
-            _nameText!!.error = null
+            _nameText.error = null
         }
 
         /* email */
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText!!.error = "enter a valid email address"
+            _emailText.error = "enter a valid email address"
             valid = false
         } else {
-            _emailText!!.error = null
+            _emailText.error = null
         }
 
         /* password */
         if (password.isEmpty() || password.length < 4 || password.length > 10) {
-            _passwordText!!.error = "between 4 and 10 alphanumeric characters"
+            _passwordText.error = "between 4 and 10 alphanumeric characters"
             valid = false
         } else {
-            _passwordText!!.error = null
+            _passwordText.error = null
         }
 
         return valid
@@ -155,6 +144,6 @@ class SignupActivity : AppCompatActivity() {
 
     companion object {
         /* 广播信息 */
-        private val TAG = "SignupActivity"
+        private val TAG = "lifecat SignupActivity"
     }
 }

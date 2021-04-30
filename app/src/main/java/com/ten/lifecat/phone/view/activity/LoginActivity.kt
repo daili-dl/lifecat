@@ -20,7 +20,7 @@ import org.jetbrains.anko.startActivity
 /**
  * 用户登录注册界面
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() { 
 
     /**
      * 登录邮箱

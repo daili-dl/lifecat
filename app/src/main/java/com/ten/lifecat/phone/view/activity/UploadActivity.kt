@@ -19,7 +19,7 @@ import java.io.FileNotFoundException
 /**
  * 图片上传界面
  */
-class UploadActivity : AppCompatActivity() {
+class UploadActivity : BaseActivity() {
 
     private lateinit var Browse: Button
     private lateinit var Images: ImageView

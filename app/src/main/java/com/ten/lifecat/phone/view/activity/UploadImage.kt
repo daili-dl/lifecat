@@ -14,7 +14,7 @@ import com.yanzhenjie.album.Album
 /**
  * 使用Album进行照片选取
  */
-class UploadImage : AppCompatActivity() {
+class UploadImage : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

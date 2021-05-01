@@ -10,7 +10,7 @@ import com.ten.lifecat.phone.R
 /**
  * WEB浏览器界面
  */
-class WebActivity : AppCompatActivity() {
+class WebActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

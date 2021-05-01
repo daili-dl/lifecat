@@ -8,7 +8,7 @@ import com.ten.lifecat.phone.R
 /**
  * TODO 用户设置界面
  */
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,7 @@ class SettingsActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.mipmap.navigation)
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu)
         }
 
         // TODO 用户信息展示与修改

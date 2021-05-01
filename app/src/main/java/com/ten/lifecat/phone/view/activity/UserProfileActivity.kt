@@ -19,7 +19,7 @@ import java.util.*
  * @name UserProfileActivity
  * @description User个人信息 profile界面
  */
-class UserProfileActivity : AppCompatActivity() {
+class UserProfileActivity : BaseActivity() {
 
     //Msg序列
     private val msgList = ArrayList<Msg>()

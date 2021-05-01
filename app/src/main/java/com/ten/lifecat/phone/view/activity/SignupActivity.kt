@@ -2,6 +2,7 @@ package com.ten.lifecat.phone.view.activity
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,14 +14,17 @@ import android.widget.TextView
 import android.widget.Toast
 
 import com.ten.lifecat.phone.R
+import com.ten.lifecat.phone.presenter.AccountLocalPresenter
+import com.ten.lifecat.phone.util.MyDatabaseHelper
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : BaseActivity() {
 
     private lateinit var _nameText: EditText
     private lateinit var _emailText: EditText
     private lateinit var _passwordText: EditText
     private lateinit var _signupButton: Button
     private lateinit var _loginLink: TextView
+    private val account = AccountLocalPresenter(this)
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,11 +77,29 @@ class SignupActivity : AppCompatActivity() {
         val email = _emailText.text.toString()
         val password = _passwordText.text.toString()
 
+        //写入数据到User表中
+        val dbHelper = MyDatabaseHelper(this, "Lifecat.db", 1)
+        val db = dbHelper.writableDatabase
+        val values1 = ContentValues().apply {
+            // 开始组装第一条数据
+            put("user_name", name)
+            put("user_email", email)
+            put("user_password", password)
+            put("is_login", 1)
+        }
+        db.insert("User", null, values1) // 插入第一条数据
+
+        //写入数据到sp中
+        account.userEmail = email
+        account.userPassword = password
+        account.hasLogin = true
+
         android.os.Handler().postDelayed(
                 {
                     // On complete call either onSignupSuccess or onSignupFailed
                     onSignupSuccess()
                     progressDialog.dismiss()
+                    finish()
                 }, 1000)
     }
 
@@ -87,6 +109,8 @@ class SignupActivity : AppCompatActivity() {
     fun onSignupSuccess() {
         _signupButton.isEnabled = true
         setResult(Activity.RESULT_OK, null)
+
+
 
         /* 跳转 */
         val intent = Intent()

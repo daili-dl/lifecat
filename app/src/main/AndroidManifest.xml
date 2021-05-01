@@ -34,11 +34,15 @@
         <activity
             android:name="com.ten.lifecat.phone.view.activity.UploadImage"
             android:label="选择图片" />
-        <activity android:name="com.ten.lifecat.phone.view.activity.LoginActivity" />
-        <activity android:name="com.ten.lifecat.phone.view.activity.SignupActivity" />
+        <activity
+            android:name="com.ten.lifecat.phone.view.activity.LoginActivity" />
+        <activity
+            android:name="com.ten.lifecat.phone.view.activity.SignupActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name="com.ten.lifecat.phone.view.activity.MainActivity"
-            android:label="lifecat" />
+            android:label="lifecat"
+            android:launchMode="singleTask"/>
         <activity
             android:name="com.ten.lifecat.phone.view.activity.UploadActivity"
             android:label="上传图片" />

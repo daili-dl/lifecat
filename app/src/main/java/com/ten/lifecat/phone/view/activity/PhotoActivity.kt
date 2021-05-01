@@ -18,7 +18,7 @@ import java.util.ArrayList
 /**
  * 图片展示界面
  */
-class PhotoActivity : AppCompatActivity() {
+class PhotoActivity : BaseActivity() {
     /* 适配器数据集 */
     private val photoList = ArrayList<Photo>()
 

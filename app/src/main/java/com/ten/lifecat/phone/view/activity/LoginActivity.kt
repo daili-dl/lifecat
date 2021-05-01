@@ -15,12 +15,13 @@ import android.widget.Toast
 import com.ten.lifecat.phone.R
 import com.ten.lifecat.phone.presenter.AccountRemotePresenter
 import com.ten.lifecat.phone.presenter.AccountLocalPresenter
+import com.ten.lifecat.phone.util.MyDatabaseHelper
 import org.jetbrains.anko.startActivity
 
 /**
  * 用户登录注册界面
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     /**
      * 登录邮箱
@@ -44,6 +45,8 @@ class LoginActivity : AppCompatActivity() {
      */
     private lateinit var experience: TextView
 
+    private val dbHelper = MyDatabaseHelper(this, "Lifecat.db", 1) //创建数据库，并且只会创建一次
+
     companion object {
         /* 广播信息 */
         private val TAG = "lifecat LoginActivity"
@@ -57,6 +60,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         this.requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_login)
+//        val dbHelper = MyDatabaseHelper(this, "Lifecat.db", 1) //创建数据库，并且只会创建一次
+        dbHelper.writableDatabase
         initView()
 
         account.userEmail.let {
@@ -139,24 +144,56 @@ class LoginActivity : AppCompatActivity() {
         // TODO: Implement your own authentication logic here.
         /*------ 验证逻辑 ------*/
 
+        val db = dbHelper.writableDatabase
+        val cursor = db.query("User", null, "user_email = ?", arrayOf(email), null, null, null)
+//        val cursor = db.query("User", null, null, null, null, null, null)
 
-        if (AccountRemotePresenter.validateUser(email, password)) {
-            //认证成功
-            android.os.Handler().postDelayed(
-                    {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess()
-                        progressDialog.dismiss()
-                    }, 1000)
-        } else {
-            //认证失败
-            android.os.Handler().postDelayed(
-                    {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginFailed()
-                        progressDialog.dismiss()
-                    }, 1000)
+        if (cursor.moveToFirst()) { //查询成功
+            do {
+                // 遍历Cursor对象，取出数据
+                val user_password = cursor.getString(cursor.getColumnIndex("user_password"))
+                if (password.equals(user_password)) { //验证成功
+                    Log.d(TAG, "验证成功！")
+                    onLoginSuccess()
+                    progressDialog.dismiss()
+                } else { //验证失败
+                    Log.d(TAG, "验证失败！")
+                    onLoginFailed()
+                    progressDialog.dismiss()
+                }
+
+//                val name = cursor.getString(cursor.getColumnIndex("user_name"))
+//                valadb loo email = cursor.getString(cursor.getColumnIndex("user_email"))
+//                val password = cursor.getString(cursor.getColumnIndex("user_password"))
+//                Log.d("fsh", "user name is $name")
+//                Log.d("fsh", "user email is $email")
+//                Log.d("fsh", "user password is $password")
+
+            } while (cursor.moveToNext())
+        } else { //查询失败
+            Log.d(TAG, "查询失败！")
+            onLoginFailed()
+            progressDialog.dismiss()
         }
+        cursor.close()
+
+//        if (AccountRemotePresenter.validateUser(email, password)) {
+//            //认证成功
+//            android.os.Handler().postDelayed(
+//                    {
+//                        // On complete call either onLoginSuccess or onLoginFailed
+//                        onLoginSuccess()
+//                        progressDialog.dismiss()
+//                    }, 1000)
+//        } else {
+//            //认证失败
+//            android.os.Handler().postDelayed(
+//                    {
+//                        // On complete call either onLoginSuccess or onLoginFailed
+//                        onLoginFailed()
+//                        progressDialog.dismiss()
+//                    }, 1000)
+//        }
     }
 
     /*---------- Activity方法 ----------*/
@@ -191,7 +228,7 @@ class LoginActivity : AppCompatActivity() {
         account.hasLogin = true
         Log.d(TAG, "hasLogin: $account.hasLogin")
 
-        Toast.makeText(this, account.userEmail + ", " + account.userPassword + ", " + account.hasLogin, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "welcome " + account.userEmail, Toast.LENGTH_LONG).show()
 
         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         finish()

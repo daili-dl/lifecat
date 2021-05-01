@@ -20,7 +20,7 @@ import com.ten.lifecat.phone.R
 /**
  * 首次启动欢迎界面
  */
-class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : BaseActivity() {
 
     private val TAG = "lifecat WelcomeActivity"
     /**
@@ -53,7 +53,7 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // 判断是否已经登录过
-        val pref = getSharedPreferences("data", MODE_PRIVATE)
+        val pref = getSharedPreferences("default", MODE_PRIVATE)
         val hasLogin = pref.getBoolean("has_login", false)
         Log.d(TAG, "hasLogin: $hasLogin")
 

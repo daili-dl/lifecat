@@ -17,7 +17,7 @@ import org.jetbrains.anko.startActivity
 /**
  * 主背景界面
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val TAG = "lifecat MainActivity"
     private lateinit var mDrawerLayout: DrawerLayout
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavigation() {
         navigationView = findViewById<NavigationView>(R.id.nav_view)
-        actionBar = supportActionBar
-        actionBar.let {
-            actionBar?.setDisplayHomeAsUpEnabled(true)
-            actionBar?.setHomeAsUpIndicator(R.mipmap.navigation)
+
+        supportActionBar.let {
+            it?.setDisplayHomeAsUpEnabled(true)
+            it?.setHomeAsUpIndicator(R.mipmap.ic_menu)
         }
 
         // 默认激活按钮

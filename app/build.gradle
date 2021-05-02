@@ -36,6 +36,7 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     //开源album:选取照片
     implementation 'com.yanzhenjie:album:1.0.0'
+
     //侧滑栏
     implementation 'com.android.support:design:28.0.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
@@ -45,6 +46,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation project(path: ':WeiXinPictureTool')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

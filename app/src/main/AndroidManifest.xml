@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="android.permission.INTERNET"/>
+
+    <permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,38 +17,39 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ten.lifecat.phone.view.activity.WelcomeActivity">
+        <activity android:name=".view.activity.EditActivity"></activity>
+        <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.UserProfileActivity"
+            android:name=".view.activity.UserProfileActivity"
             android:label="LifeCat" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.WebActivity"
+            android:name=".view.activity.WebActivity"
             android:label="访问服务" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.SettingsActivity"
+            android:name=".view.activity.SettingsActivity"
             android:label="设置" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.UploadImage"
+            android:name=".view.activity.UploadImage"
             android:label="选择图片" />
+        <activity android:name=".view.activity.LoginActivity" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.LoginActivity" />
+            android:name=".view.activity.SignupActivity"
+            android:launchMode="singleTask" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.SignupActivity"
-            android:launchMode="singleTask"/>
-        <activity
-            android:name="com.ten.lifecat.phone.view.activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:label="lifecat"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.UploadActivity"
+            android:name=".view.activity.UploadActivity"
             android:label="上传图片" />
         <activity
-            android:name="com.ten.lifecat.phone.view.activity.PhotoActivity"
+            android:name=".view.activity.PhotoActivity"
             android:label="相册Album" />
         <activity
             android:name="com.yanzhenjie.album.AlbumActivity"

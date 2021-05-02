@@ -1,1 +1,4 @@
+include ':WeiXinPictureTool'
+include ':clipimageview'
 include ':app'
+include ':pictureTagView'
